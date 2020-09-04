@@ -3,6 +3,9 @@ package com.albuquerque.menuly.app.application
 import android.app.Application
 import com.albuquerque.menuly.app.data.AppDatabase
 import com.albuquerque.menuly.app.repository.*
+import com.albuquerque.menuly.app.usecase.GetCategoriesUseCase
+import com.albuquerque.menuly.app.usecase.GetMenuUseCase
+import com.albuquerque.menuly.app.viewmodel.MenuViewModel
 import com.facebook.stetho.Stetho
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -39,21 +42,23 @@ class MenulyApplication: Application() {
 
             val databaseModule = module {
                 single { AppDatabase.getInstance(get()) }
-                single { get<AppDatabase>().menuDAO }
+                single { get<AppDatabase>().categoryDAO }
+                single { get<AppDatabase>().foodDAO }
             }
 
             val repositoryModule = module {
                 factory<RemoteRepository> { RemoteRepositoryImpl() }
-                factory<LocalRepository> { LocalRepositoryImpl(menuDao = get()) }
+                factory<LocalRepository> { LocalRepositoryImpl(categoryDao = get(), foodDao = get()) }
                 factory<Repository> { RepositoryImpl(remote = get(), local = get()) }
             }
 
             val useCaseModule = module {
-                //factory { UseCase(repository = get()) }
+                factory { GetMenuUseCase(repository = get()) }
+                factory { GetCategoriesUseCase(repository = get()) }
             }
 
             val viewModelModule = module {
-                //viewModel {  }
+                viewModel { MenuViewModel(getMenuUseCase = get()) }
             }
 
             modules(listOf(databaseModule, repositoryModule, useCaseModule, viewModelModule))

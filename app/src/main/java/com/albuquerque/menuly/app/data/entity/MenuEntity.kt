@@ -1,9 +1,13 @@
 package com.albuquerque.menuly.app.data.entity
 
-import androidx.room.Entity
+import androidx.room.Embedded
+import androidx.room.Relation
 
-@Entity(tableName = "menu")
-data class MenuEntity(
-    var id: Long,
-    var category: String
+class MenuEntity(
+
+    @Embedded val category: CategoryEntity,
+
+    @Relation(parentColumn = "categoryId", entityColumn = "foodId")
+    val food: List<FoodEntity>
+
 )

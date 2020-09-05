@@ -29,9 +29,9 @@ class RepositoryImpl(
             }
     }
 
-    override suspend fun getMenuFromDb(): Flow<List<MenuEntity>> =
+    override fun getMenuFromDb(): Flow<List<MenuEntity>> =
         local.getCategoriesWithFood()
 
-    override suspend fun getCategoriesFromDb(): Flow<List<CategoryEntity>> =
+    override fun getCategoriesFromDb(): Flow<List<CategoryEntity>> =
         local.getCategories()
 }

@@ -14,7 +14,7 @@ import com.albuquerque.menuly.app.data.entity.MenuEntity
 @Database(
     version = 1,
     exportSchema = false,
-    entities = [CategoryEntity::class, FoodEntity::class, MenuEntity::class]
+    entities = [CategoryEntity::class, FoodEntity::class]
 )
 abstract class AppDatabase: RoomDatabase() {
 

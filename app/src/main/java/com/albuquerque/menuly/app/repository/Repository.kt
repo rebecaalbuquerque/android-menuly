@@ -9,8 +9,8 @@ interface Repository {
 
     suspend fun getMenuFromApi(): Result<List<CategoryDTO>>
 
-    suspend fun getMenuFromDb(): Flow<List<MenuEntity>>
+    fun getMenuFromDb(): Flow<List<MenuEntity>>
 
-    suspend fun getCategoriesFromDb(): Flow<List<CategoryEntity>>
+    fun getCategoriesFromDb(): Flow<List<CategoryEntity>>
 
 }

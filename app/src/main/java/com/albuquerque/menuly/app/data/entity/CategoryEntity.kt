@@ -1,9 +1,10 @@
 package com.albuquerque.menuly.app.data.entity
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "category")
-class CategoryEntity(
-    var categoryId: Long,
+data class CategoryEntity(
+    @PrimaryKey var categoryId: Long,
     var name: String
 )

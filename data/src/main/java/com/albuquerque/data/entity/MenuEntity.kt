@@ -1,0 +1,13 @@
+package com.albuquerque.data.entity
+
+import androidx.room.Embedded
+import androidx.room.Relation
+
+class MenuEntity(
+
+    @Embedded val category: CategoryEntity,
+
+    @Relation(parentColumn = "categoryId", entityColumn = "foodId")
+    val food: List<FoodEntity>
+
+)

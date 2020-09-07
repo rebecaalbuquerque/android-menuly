@@ -2,12 +2,10 @@ package com.albuquerque.menuly.application
 
 import android.app.Application
 import com.albuquerque.data.AppDatabase
-import com.albuquerque.domain.repository.LocalRepository
-import com.albuquerque.domain.repository.LocalRepositoryImpl
-import com.albuquerque.domain.repository.RemoteRepository
-import com.albuquerque.domain.repository.RemoteRepositoryImpl
+import com.albuquerque.domain.repository.*
 import com.albuquerque.domain.usecase.GetCategoriesUseCase
 import com.albuquerque.domain.usecase.GetMenuUseCase
+import com.albuquerque.domain.usecase.SelectFoodUseCase
 import com.albuquerque.menuly.viewmodel.MenuViewModel
 import com.facebook.stetho.Stetho
 import org.koin.android.ext.koin.androidContext
@@ -51,27 +49,18 @@ class MenulyApplication: Application() {
 
             val repositoryModule = module {
                 factory<RemoteRepository> { RemoteRepositoryImpl() }
-                factory<LocalRepository> {
-                    LocalRepositoryImpl(
-                        categoryDao = get(),
-                        foodDao = get()
-                    )
-                }
-                factory<com.albuquerque.domain.repository.Repository> {
-                    com.albuquerque.domain.repository.RepositoryImpl(
-                        remote = get(),
-                        local = get()
-                    )
-                }
+                factory<LocalRepository> { LocalRepositoryImpl(categoryDao = get(), foodDao = get()) }
+                factory<Repository> { RepositoryImpl(remote = get(), local = get()) }
             }
 
             val useCaseModule = module {
                 factory { GetMenuUseCase(repository = get()) }
                 factory { GetCategoriesUseCase(repository = get()) }
+                factory { SelectFoodUseCase(repository = get()) }
             }
 
             val viewModelModule = module {
-                viewModel { MenuViewModel(getMenuUseCase = get()) }
+                viewModel { MenuViewModel(getMenuUseCase = get(), selectFoodUseCase = get()) }
             }
 
             modules(listOf(databaseModule, repositoryModule, useCaseModule, viewModelModule))

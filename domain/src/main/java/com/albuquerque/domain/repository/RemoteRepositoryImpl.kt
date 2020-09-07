@@ -17,8 +17,6 @@ class RemoteRepositoryImpl: Remote(), RemoteRepository {
                 it.name = it.name.capitalizeSentence()
                 it
             }
-        }.onFailure {
-            it
         }
     }
 }

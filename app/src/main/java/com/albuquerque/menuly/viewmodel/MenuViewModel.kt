@@ -2,22 +2,25 @@ package com.albuquerque.menuly.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.viewModelScope
 import com.albuquerque.core.util.Event
 import com.albuquerque.core.view.mediator.SingleMediatorLiveData
 import com.albuquerque.domain.usecase.GetMenuUseCase
 import com.albuquerque.core.viewmodel.BaseViewModel
 import com.albuquerque.data.ui.MenuUI
+import com.albuquerque.domain.usecase.SelectFoodUseCase
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MenuViewModel(
-    private val getMenuUseCase: GetMenuUseCase
+    private val getMenuUseCase: GetMenuUseCase,
+    private val selectFoodUseCase: SelectFoodUseCase
 ): BaseViewModel() {
 
     private val _menu = SingleMediatorLiveData<List<MenuUI>>().apply {
         viewModelScope.launch {
-            this@apply.emit(getMenuUseCase.invokeFromDb().asLiveData())
+            this@apply.emit(getMenuUseCase.invokeFromDb().asLiveData().distinctUntilChanged())
         }
     }
 
@@ -44,6 +47,12 @@ class MenuViewModel(
                 }
 
             }
+        }
+    }
+
+    fun selectFood(idFood: Long) {
+        viewModelScope.launch {
+            selectFoodUseCase.invoke(idFood)
         }
     }
 

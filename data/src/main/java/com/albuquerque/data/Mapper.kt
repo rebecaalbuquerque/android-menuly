@@ -25,23 +25,24 @@ fun MenuEntity.toListMenuUI(): List<MenuUI> {
     return this.food
         .map {
             MenuUI(
-                it.foodId,
-                it.name,
-                it.description ?: "Descrição indisponível",
-                it.price,
-                it.imageUrl
+                id = it.foodId,
+                name = it.name,
+                description = it.description ?: "Descrição indisponível",
+                price = it.price,
+                imageUrl = it.imageUrl,
+                isSelected = it.isSelected
             )
         }
         .toMutableList().apply {
             this.add(
                 0,
                 MenuUI(
-                    this@toListMenuUI.category.categoryId,
-                    this@toListMenuUI.category.name,
-                    "",
-                    0.0,
-                    "",
-                    true
+                    id = this@toListMenuUI.category.categoryId,
+                    name = this@toListMenuUI.category.name,
+                    description = "",
+                    price = 0.0,
+                    imageUrl = "",
+                    isHeader = true
                 )
             )
         }

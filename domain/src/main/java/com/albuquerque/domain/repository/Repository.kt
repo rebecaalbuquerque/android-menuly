@@ -13,4 +13,6 @@ interface Repository {
 
     fun getCategoriesFromDb(): Flow<List<CategoryEntity>>
 
+    suspend fun selectFood(foodId: Long)
+
 }

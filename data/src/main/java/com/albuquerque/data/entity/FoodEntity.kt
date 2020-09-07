@@ -10,5 +10,6 @@ data class FoodEntity(
     var description: String?,
     var price: Double,
     var imageUrl: String?,
-    var categoryId: Long
+    var categoryId: Long,
+    var isSelected: Boolean = false
 )

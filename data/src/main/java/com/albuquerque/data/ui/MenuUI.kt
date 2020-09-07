@@ -6,5 +6,6 @@ data class MenuUI(
     var description: String,
     var price: Double,
     var imageUrl: String? = null,
-    var isHeader: Boolean = false
+    var isHeader: Boolean = false,
+    var isSelected: Boolean = false
 )

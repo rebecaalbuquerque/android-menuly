@@ -60,7 +60,9 @@ class MenuActivity : BaseActivity() {
     }
 
     private fun setupView() {
-        rvMenu.adapter = MenuAdapter()
+        rvMenu.adapter = MenuAdapter {
+            menuViewModel.selectFood(it)
+        }
 
         tryAgain.setOnClickListener {
             menuViewModel.getMenu()

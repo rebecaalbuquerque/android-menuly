@@ -15,7 +15,9 @@ import com.albuquerque.menuly.view.holder.MenuItemViewHolder
 import com.albuquerque.menuly.view.holder.MenuViewHolder
 
 
-class MenuAdapter : BaseAdapter<MenuUI, MenuViewHolder>() {
+class MenuAdapter(
+    private val onClick: (id: Long) -> Unit
+) : BaseAdapter<MenuUI, MenuViewHolder>() {
 
     companion object {
         const val MENU_HEADER = 0
@@ -56,7 +58,10 @@ class MenuAdapter : BaseAdapter<MenuUI, MenuViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {
-        holder.bind(getItemAt(position))
+        when(holder) {
+            is MenuItemViewHolder -> holder.bind(getItemAt(position), onClick)
+            else -> (holder as MenuHeaderViewHolder).bind(getItemAt(position))
+        }
     }
 
 }

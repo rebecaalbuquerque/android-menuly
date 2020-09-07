@@ -27,9 +27,6 @@ class RepositoryImpl(
                 local.saveCategories(categories)
                 local.saveFood(food)
             }
-            .onFailure {
-                it
-            }
     }
 
     override fun getMenuFromDb(): Flow<List<MenuEntity>> =
@@ -37,4 +34,12 @@ class RepositoryImpl(
 
     override fun getCategoriesFromDb(): Flow<List<CategoryEntity>> =
         local.getCategories()
+
+    override suspend fun selectFood(foodId: Long) {
+        local.getFoodById(foodId)?.apply {
+            this.isSelected = !this.isSelected
+        }?.let {
+            local.updateFood(it)
+        }
+    }
 }

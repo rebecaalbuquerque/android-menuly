@@ -13,7 +13,7 @@ class LocalRepositoryImpl(
 ): LocalRepository {
 
     override suspend fun saveFood(food: List<FoodEntity>) {
-        foodDao.insertAll(food)
+        foodDao.saveAll(food)
     }
 
     override suspend fun updateFood(food: FoodEntity) {

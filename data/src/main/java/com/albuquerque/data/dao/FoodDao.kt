@@ -28,4 +28,15 @@ interface FoodDao: BaseDao<FoodEntity> {
         }
     }
 
+    @Transaction
+    suspend fun saveAll(food: List<FoodEntity>) {
+        food.forEach {
+            get(it.foodId)?.let { fromDb ->
+                it.isSelected = fromDb.isSelected
+            }
+        }
+
+        insertAll(food)
+    }
+
 }

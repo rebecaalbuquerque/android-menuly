@@ -31,16 +31,16 @@ class MenuViewModel(
     }
 
     fun getMenu() {
-        onShowLoading.call()
+        onShowLoading.postValue(Event(Any()))
 
         viewModelScope.launch {
             getMenuUseCase.invokeFromApi().collect { result ->
-                onHideLoading.call()
+                onHideLoading.postValue(Event(Any()))
 
                 result.onFailure {
 
                     if(_menu.value.isNullOrEmpty())
-                        onLayoutError.call()
+                        onLayoutError.postValue(Event(Any()))
                     else
                         onSnackBarError.postValue(Event(it.message))
 

@@ -3,9 +3,11 @@ package com.albuquerque.data
 import com.albuquerque.data.dto.CategoryDTO
 import com.albuquerque.data.entity.CategoryEntity
 import com.albuquerque.data.dto.FoodDTO
+import com.albuquerque.data.dto.RestaurantDTO
 import com.albuquerque.data.entity.FoodEntity
 import com.albuquerque.data.entity.MenuEntity
 import com.albuquerque.data.ui.MenuUI
+import com.albuquerque.data.ui.RestaurantUI
 
 
 fun CategoryDTO.toEntity() = CategoryEntity(this.id, this.name)
@@ -83,4 +85,13 @@ fun CategoryDTO.toListMenuUI(): List<MenuUI> {
                 )
             )
         }
+}
+
+fun RestaurantDTO.toUI(): RestaurantUI {
+    return RestaurantUI(
+        this.id,
+        this.name ?: "-",
+        this.deliveryFee ?: 0.0,
+        this.minimumOrderPrice ?: 0.0
+    )
 }

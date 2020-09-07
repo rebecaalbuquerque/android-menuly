@@ -16,22 +16,22 @@ class LocalRepositoryImpl(
         foodDao.insertAll(food)
     }
 
-    override suspend fun getFoodById(foodId: Long): FoodEntity? = foodDao.get(foodId)
-
     override suspend fun updateFood(food: FoodEntity) {
         foodDao.update(food)
     }
+
+    override suspend fun getFoodById(foodId: Long): FoodEntity? = foodDao.get(foodId)
 
     override suspend fun saveCategories(categories: List<CategoryEntity>) {
         categoryDao.insertAll(categories)
     }
 
     override fun getMenuFlow(): Flow<List<MenuEntity>> =
-        categoryDao.getMenu()
-
-    override fun getCategoriesFlow(): Flow<List<CategoryEntity>> =
-        categoryDao.getCategories()
+        categoryDao.getMenuFlow()
 
     override fun getCartFoodFlow(): Flow<List<FoodEntity>> =
-        foodDao.getCartFood()
+        foodDao.getCartFoodFlow()
+
+    override suspend fun clearCart() = foodDao.clearCart()
+
 }

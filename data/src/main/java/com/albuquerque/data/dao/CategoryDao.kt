@@ -12,9 +12,6 @@ interface CategoryDao: BaseDao<CategoryEntity> {
 
     @Transaction
     @Query("SELECT * FROM category")
-    fun getMenu(): Flow<List<MenuEntity>>
-
-    @Query("SELECT * FROM category")
-    fun getCategories(): Flow<List<CategoryEntity>>
+    fun getMenuFlow(): Flow<List<MenuEntity>>
 
 }

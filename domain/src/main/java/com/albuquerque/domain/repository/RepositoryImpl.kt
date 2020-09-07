@@ -1,6 +1,7 @@
 package com.albuquerque.domain.repository
 
 import com.albuquerque.data.dto.CategoryDTO
+import com.albuquerque.data.dto.RestaurantDTO
 import com.albuquerque.data.entity.CategoryEntity
 import com.albuquerque.data.entity.FoodEntity
 import com.albuquerque.data.entity.MenuEntity
@@ -32,9 +33,6 @@ class RepositoryImpl(
     override fun getMenuFromDb(): Flow<List<MenuEntity>> =
         local.getMenuFlow()
 
-    override fun getCategoriesFromDb(): Flow<List<CategoryEntity>> =
-        local.getCategoriesFlow()
-
     override suspend fun selectFood(foodId: Long) {
         local.getFoodById(foodId)?.apply {
             this.isSelected = !this.isSelected
@@ -45,5 +43,11 @@ class RepositoryImpl(
 
     override fun getCartFood(): Flow<List<FoodEntity>> =
         local.getCartFoodFlow()
+
+    override suspend fun getRestaurantFromApi(): Result<RestaurantDTO> {
+        return remote.fetchRestaurant()
+    }
+
+    override suspend fun clearCart() = local.clearCart()
 
 }

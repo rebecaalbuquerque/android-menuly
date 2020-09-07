@@ -5,5 +5,10 @@
     <string name="label_empty_cart">Você ainda não adicionou nenhum item ao carrinho.</string>
     <string name="action_cart_title">Carrinho</string>
     <string name="cart_label_total">Total</string>
-    <string name="label_confirm">Confirmar</string>
+    <string name="label_confirm">Concluir Pedido</string>
+    <string name="ok">OK</string>
+    <string name="cart_order_title_sucess">Pedido finalizado!</string>
+    <string name="cart_order_body_sucess">Seu pedido de %1$s foi confirmado.\n Aguarde enquanto preparamos!</string>
+    <string name="cart_order_title_error">Erro ao finalizar pedido.</string>
+    <string name="cart_order_body_error">Não podemos finalizar o seu pedido, este restaurante tem um valor mínimo de encomenda de %1$s.</string>
 </resources>

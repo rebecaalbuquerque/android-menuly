@@ -22,18 +22,6 @@ class RepositoryImplTest : BaseTest() {
     var instantExecutorRule = InstantTaskExecutorRule()
 
     @Test
-    fun `test get categories from db`() =
-        runBlocking {
-            categoryDao.insertAll(listOf(FakeDataLocal.cat1, FakeDataLocal.cat2))
-
-            repository.getCategoriesFromDb()
-                .take(1)
-                .collect {
-                    assertThat(it).isEqualTo(listOf(FakeDataLocal.cat1, FakeDataLocal.cat2))
-                }
-        }
-
-    @Test
     fun `test get succesfully menu from api`() =
         runBlocking {
             val result = repository.getMenuFromApi()

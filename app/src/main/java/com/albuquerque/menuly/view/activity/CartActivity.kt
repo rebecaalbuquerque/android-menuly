@@ -7,8 +7,12 @@ import com.albuquerque.core.view.activity.BaseActivity
 import com.albuquerque.menuly.R
 import com.albuquerque.menuly.adapter.MenuAdapter
 import com.albuquerque.menuly.databinding.ActivityCartBinding
+import com.albuquerque.menuly.extensions.setGone
 import com.albuquerque.menuly.extensions.setVisible
+import com.albuquerque.menuly.extensions.showSnackbar
+import com.albuquerque.menuly.extensions.toBrazilianCurrency
 import com.albuquerque.menuly.viewmodel.CartViewModel
+import com.albuquerque.menuly.widget.*
 import kotlinx.android.synthetic.main.activity_cart.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,9 +32,48 @@ class CartActivity : BaseActivity() {
 
     private fun subscribeUI() {
         with(cartViewModel) {
+
             onEmpty.observe(this@CartActivity) {
                 layoutEmpty.setVisible()
             }
+
+            onSnackBarError.observe(this@CartActivity) { message ->
+                message.getContentIfNotHandled()?.let {
+                    rvCart.showSnackbar(it)
+                }
+            }
+
+            onShowLoading.observe(this@CartActivity) {
+                orderProgress.setVisible()
+            }
+
+            onHideLoading.observe(this@CartActivity) {
+                orderProgress.setGone()
+            }
+
+            onCompletedOrder.observe(this@CartActivity) { event ->
+                event.getContentIfNotHandled()?.let {
+                    BottomDialog.build(this@CartActivity)
+                        .icon(R.drawable.ic_success)
+                        .title(getString(R.string.cart_order_title_sucess))
+                        .body(getString(R.string.cart_order_body_sucess, it.toBrazilianCurrency()))
+                        .onPositive(getString(R.string.ok)){
+                            onBackPressed()
+                            clearCart()
+                        }
+                }
+            }
+
+            onLessThanTheMinimum.observe(this@CartActivity) { event ->
+                event.getContentIfNotHandled()?.let {
+                    BottomDialog.build(this@CartActivity)
+                        .icon(R.drawable.ic_error)
+                        .title(getString(R.string.cart_order_title_error))
+                        .body(getString(R.string.cart_order_body_error, it.toBrazilianCurrency()))
+                        .onPositive(getString(R.string.ok))
+                }
+            }
+
         }
     }
 

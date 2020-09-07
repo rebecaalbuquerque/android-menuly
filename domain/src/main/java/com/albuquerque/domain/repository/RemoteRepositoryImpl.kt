@@ -2,6 +2,7 @@ package com.albuquerque.domain.repository
 
 import com.albuquerque.core.extensions.capitalizeSentence
 import com.albuquerque.data.dto.CategoryDTO
+import com.albuquerque.data.dto.RestaurantDTO
 import com.albuquerque.domain.remote.MenulyAPI
 import com.albuquerque.domain.remote.Remote
 
@@ -19,4 +20,9 @@ class RemoteRepositoryImpl: Remote(), RemoteRepository {
             }
         }
     }
+
+    override suspend fun fetchRestaurant(): Result<RestaurantDTO> {
+        return runRequest { menulyApi.fetchRestaurant() }
+    }
+
 }

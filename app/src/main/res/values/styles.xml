@@ -7,6 +7,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/splashscreen</item>
+    </style>
+    
     <style name="BottomDialogStyle">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>

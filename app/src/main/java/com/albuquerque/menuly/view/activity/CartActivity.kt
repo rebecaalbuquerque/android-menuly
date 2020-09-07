@@ -39,7 +39,7 @@ class CartActivity : BaseActivity() {
 
             onSnackBarError.observe(this@CartActivity) { message ->
                 message.getContentIfNotHandled()?.let {
-                    rvCart.showSnackbar(it)
+                    container.showSnackbar(it)
                 }
             }
 

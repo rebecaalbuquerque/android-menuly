@@ -12,10 +12,7 @@ class BottomDialog {
 
     companion object {
 
-        private lateinit var layoutInflater: LayoutInflater
-
         fun build(context: Activity): AlertDialog {
-            layoutInflater = LayoutInflater.from(context)
 
             val alertDialog = AlertDialog
                 .Builder(context, R.style.BottomDialogStyle)

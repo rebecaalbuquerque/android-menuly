@@ -21,11 +21,14 @@ class RepositoryImpl(
 
                 response.forEach { category ->
                     categories.add(category.toEntity())
-                    food.addAll(category.items.map { it.toEntity(it.id) })
+                    food.addAll(category.items.map { it.toEntity(category.id) })
                 }
 
                 local.saveCategories(categories)
                 local.saveFood(food)
+            }
+            .onFailure {
+                it
             }
     }
 

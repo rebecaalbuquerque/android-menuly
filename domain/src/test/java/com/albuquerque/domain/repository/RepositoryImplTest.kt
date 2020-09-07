@@ -10,6 +10,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Rule
 import org.junit.Test
+import org.junit.experimental.theories.suppliers.TestedOn
 import org.junit.runner.RunWith
 import java.util.concurrent.TimeUnit
 
@@ -37,6 +38,20 @@ class RepositoryImplTest : BaseTest() {
         runBlocking {
             val result = repository.getMenuFromApi()
             assertThat(result.isSuccess).isTrue()
+        }
+
+    @Test
+    fun `test get categories with food from db`() =
+        runBlocking {
+            categoryDao.insertAll(listOf(FakeDataLocal.cat4))
+            foodDao.insertAll(listOf(FakeDataLocal.food1, FakeDataLocal.food2))
+
+            repository.getMenuFromDb()
+                .take(1)
+                .collect {
+                    assertThat(it).isEqualTo(listOf(FakeDataLocal.menu1))
+                }
+
         }
 
     @After

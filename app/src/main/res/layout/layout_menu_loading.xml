@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/header"
+        android:layout_width="110dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/background_rounded"
+        app:layout_constraintBottom_toTopOf="@+id/loadingDescription2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline2"
+        app:layout_constraintStart_toEndOf="@+id/loadingImage2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <View
+            android:id="@+id/loadingImage1"
+            android:layout_width="0dp"
+            android:layout_height="85dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/background_rounded"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="22:20"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:id="@+id/loadingName1"
+            android:layout_width="0dp"
+            android:layout_height="14dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/background_rounded"
+            app:layout_constraintBottom_toTopOf="@+id/loadingDescription1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline1"
+            app:layout_constraintStart_toEndOf="@+id/loadingImage1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <View
+            android:id="@+id/loadingDescription1"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/background_rounded"
+            app:layout_constraintBottom_toTopOf="@+id/loadingDescription12"
+            app:layout_constraintEnd_toEndOf="@+id/loadingDescription12"
+            app:layout_constraintStart_toStartOf="@+id/loadingName1"
+            app:layout_constraintTop_toBottomOf="@+id/loadingName1" />
+
+        <View
+            android:id="@+id/loadingDescription12"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/background_rounded"
+            app:layout_constraintBottom_toTopOf="@+id/loadingPrice1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/loadingName1"
+            app:layout_constraintTop_toBottomOf="@+id/loadingDescription1" />
+
+        <View
+            android:id="@+id/loadingPrice1"
+            android:layout_width="0dp"
+            android:layout_height="12dp"
+            android:layout_marginEnd="56dp"
+            android:background="@drawable/background_rounded"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="@+id/loadingName1"
+            app:layout_constraintTop_toBottomOf="@+id/loadingDescription12" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <View
+            android:id="@+id/loadingImage2"
+            android:layout_width="0dp"
+            android:layout_height="85dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/background_rounded"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="22:20"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:id="@+id/loadingName2"
+            android:layout_width="0dp"
+            android:layout_height="14dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/background_rounded"
+            app:layout_constraintBottom_toTopOf="@+id/loadingDescription2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@+id/loadingImage2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <View
+            android:id="@+id/loadingDescription2"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/background_rounded"
+            app:layout_constraintBottom_toTopOf="@+id/loadingDescription22"
+            app:layout_constraintEnd_toEndOf="@+id/loadingDescription22"
+            app:layout_constraintStart_toStartOf="@+id/loadingName2"
+            app:layout_constraintTop_toBottomOf="@+id/loadingName2" />
+
+        <View
+            android:id="@+id/loadingDescription22"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/background_rounded"
+            app:layout_constraintBottom_toTopOf="@+id/loadingPrice2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/loadingName2"
+            app:layout_constraintTop_toBottomOf="@+id/loadingDescription2" />
+
+        <View
+            android:id="@+id/loadingPrice2"
+            android:layout_width="0dp"
+            android:layout_height="12dp"
+            android:layout_marginEnd="56dp"
+            android:background="@drawable/background_rounded"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/loadingName2"
+            app:layout_constraintTop_toBottomOf="@+id/loadingDescription22" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

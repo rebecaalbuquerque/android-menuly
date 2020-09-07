@@ -1,6 +1,6 @@
 package com.albuquerque.data.ui
 
-class MenuUI(
+data class MenuUI(
     var id: Long,
     var name: String,
     var description: String,

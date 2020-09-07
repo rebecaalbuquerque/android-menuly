@@ -21,7 +21,7 @@ class LocalRepositoryImpl(
     }
 
     override fun getCategoriesWithFood(): Flow<List<MenuEntity>> =
-        categoryDao.getDogsAndOwners()
+        categoryDao.getMenu()
 
     override fun getCategories(): Flow<List<CategoryEntity>> =
         categoryDao.getCategories()

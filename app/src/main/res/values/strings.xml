@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Menuly</string>
+    <string name="try_again">Tentar novamente</string>
+    <string name="label_empty_menu">Não foi possível exibir o cardápio.</string>
 </resources>

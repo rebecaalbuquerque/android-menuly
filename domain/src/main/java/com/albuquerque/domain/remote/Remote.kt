@@ -1,6 +1,7 @@
 package com.albuquerque.domain.remote
 
 import android.util.Log
+import com.albuquerque.core.util.Config
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -26,7 +27,6 @@ abstract class Remote {
 
                 addInterceptor(MenulyInterceptor())
                 addInterceptor(loggingInterceptor)
-
                 addNetworkInterceptor(StethoInterceptor())
 
             }.build()
@@ -36,13 +36,10 @@ abstract class Remote {
     }
 
     fun getRetrofitBuilder(url: String = Config.BASE_URL): Retrofit {
-
         return Retrofit.Builder().apply {
-
             baseUrl(url)
             addConverterFactory(GsonConverterFactory.create())
             client(okHttpClient)
-
         }.build()
 
     }
@@ -52,9 +49,7 @@ abstract class Remote {
             try {
                 Result.success(request.invoke())
             } catch (throwable: Throwable) {
-
                 Log.d("runRequest() error", throwable.message ?: "")
-
                 when (throwable) {
                     is HttpException -> {
 

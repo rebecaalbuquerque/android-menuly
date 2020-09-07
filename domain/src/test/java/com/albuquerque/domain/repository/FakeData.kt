@@ -2,6 +2,7 @@ package com.albuquerque.domain.repository
 
 import com.albuquerque.data.entity.CategoryEntity
 import com.albuquerque.data.entity.FoodEntity
+import com.albuquerque.data.entity.MenuEntity
 
 object FakeDataLocal {
 
@@ -50,6 +51,8 @@ object FakeDataLocal {
         null,
         cat1.categoryId
     )
+
+    val menu1 = MenuEntity(cat4, listOf(food1, food2))
 
 }
 

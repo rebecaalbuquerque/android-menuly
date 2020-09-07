@@ -31,11 +31,9 @@ class GetMenuUseCase(
     suspend fun invokeFromApi(): Flow<Result<List<MenuUI>>> = flow {
         emitAll(
             repository.getMenuFromApi()
-                .map {
-                    it
-                        .map { category ->
-                            category.toListMenuUI()
-                        }
+                .map { list ->
+                    list
+                        .map { it.toListMenuUI() }
                         .flatten()
                 }
                 .asFlow().flowOn(Dispatchers.IO)

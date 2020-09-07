@@ -30,10 +30,10 @@ class RepositoryImpl(
     }
 
     override fun getMenuFromDb(): Flow<List<MenuEntity>> =
-        local.getCategoriesWithFood()
+        local.getMenuFlow()
 
     override fun getCategoriesFromDb(): Flow<List<CategoryEntity>> =
-        local.getCategories()
+        local.getCategoriesFlow()
 
     override suspend fun selectFood(foodId: Long) {
         local.getFoodById(foodId)?.apply {
@@ -42,4 +42,8 @@ class RepositoryImpl(
             local.updateFood(it)
         }
     }
+
+    override fun getCartFood(): Flow<List<FoodEntity>> =
+        local.getCartFoodFlow()
+
 }

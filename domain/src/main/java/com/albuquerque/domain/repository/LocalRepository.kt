@@ -15,8 +15,10 @@ interface LocalRepository {
 
     suspend fun saveCategories(categories: List<CategoryEntity>)
 
-    fun getCategoriesWithFood(): Flow<List<MenuEntity>>
+    fun getCartFoodFlow(): Flow<List<FoodEntity>>
 
-    fun getCategories(): Flow<List<CategoryEntity>>
+    fun getMenuFlow(): Flow<List<MenuEntity>>
+
+    fun getCategoriesFlow(): Flow<List<CategoryEntity>>
 
 }

@@ -15,6 +15,8 @@ class MenuItemViewHolder(binding: ViewDataBinding): MenuViewHolder(binding) {
             root.setOnClickListener {
                 onClick(item.id)
             }
+
+            this.executePendingBindings()
         }
     }
 

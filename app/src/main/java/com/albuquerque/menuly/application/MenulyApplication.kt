@@ -3,9 +3,11 @@ package com.albuquerque.menuly.application
 import android.app.Application
 import com.albuquerque.data.AppDatabase
 import com.albuquerque.domain.repository.*
+import com.albuquerque.domain.usecase.GetCartFoodUseCase
 import com.albuquerque.domain.usecase.GetCategoriesUseCase
 import com.albuquerque.domain.usecase.GetMenuUseCase
 import com.albuquerque.domain.usecase.SelectFoodUseCase
+import com.albuquerque.menuly.viewmodel.CartViewModel
 import com.albuquerque.menuly.viewmodel.MenuViewModel
 import com.facebook.stetho.Stetho
 import org.koin.android.ext.koin.androidContext
@@ -57,10 +59,12 @@ class MenulyApplication: Application() {
                 factory { GetMenuUseCase(repository = get()) }
                 factory { GetCategoriesUseCase(repository = get()) }
                 factory { SelectFoodUseCase(repository = get()) }
+                factory { GetCartFoodUseCase(repository = get()) }
             }
 
             val viewModelModule = module {
                 viewModel { MenuViewModel(getMenuUseCase = get(), selectFoodUseCase = get()) }
+                viewModel { CartViewModel(getCartFoodUseCase = get()) }
             }
 
             modules(listOf(databaseModule, repositoryModule, useCaseModule, viewModelModule))

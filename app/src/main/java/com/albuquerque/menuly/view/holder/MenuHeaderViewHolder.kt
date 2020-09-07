@@ -9,6 +9,7 @@ class MenuHeaderViewHolder(binding: ViewDataBinding): MenuViewHolder(binding) {
     override fun bind(item: MenuUI) {
         with(binding as ItemMenuHeaderBinding) {
             menu = item
+            this.executePendingBindings()
         }
     }
 

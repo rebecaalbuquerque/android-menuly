@@ -54,6 +54,20 @@ class RepositoryImplTest : BaseTest() {
 
         }
 
+    @Test
+    fun `test get cart food from db`() =
+        runBlocking {
+            categoryDao.insertAll(listOf(FakeDataLocal.cat4))
+            foodDao.insertAll(listOf(FakeDataLocal.food1, FakeDataLocal.food2.apply { isSelected = true }))
+
+            repository.getCartFood()
+                .take(1)
+                .collect {
+                    assertThat(it).isEqualTo(listOf(FakeDataLocal.food2.apply { isSelected = true }))
+                }
+
+        }
+
     @After
     fun teardown() {
         // At the end of all tests, query executor should be idle.

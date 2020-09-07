@@ -26,10 +26,12 @@ class LocalRepositoryImpl(
         categoryDao.insertAll(categories)
     }
 
-    override fun getCategoriesWithFood(): Flow<List<MenuEntity>> =
+    override fun getMenuFlow(): Flow<List<MenuEntity>> =
         categoryDao.getMenu()
 
-    override fun getCategories(): Flow<List<CategoryEntity>> =
+    override fun getCategoriesFlow(): Flow<List<CategoryEntity>> =
         categoryDao.getCategories()
 
+    override fun getCartFoodFlow(): Flow<List<FoodEntity>> =
+        foodDao.getCartFood()
 }

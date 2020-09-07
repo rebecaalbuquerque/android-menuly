@@ -2,6 +2,7 @@ package com.albuquerque.domain.repository
 
 import com.albuquerque.data.dto.CategoryDTO
 import com.albuquerque.data.entity.CategoryEntity
+import com.albuquerque.data.entity.FoodEntity
 import com.albuquerque.data.entity.MenuEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -14,5 +15,7 @@ interface Repository {
     fun getCategoriesFromDb(): Flow<List<CategoryEntity>>
 
     suspend fun selectFood(foodId: Long)
+
+    fun getCartFood(): Flow<List<FoodEntity>>
 
 }

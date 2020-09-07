@@ -21,6 +21,17 @@ fun FoodDTO.toEntity(categoryId: Long): FoodEntity {
     )
 }
 
+fun FoodEntity.toMenuUI(): MenuUI {
+    return MenuUI(
+        id = this.foodId,
+        name = this.name,
+        description = this.description ?: "Descrição indisponível",
+        price = this.price,
+        imageUrl = this.imageUrl,
+        isSelected = this.isSelected
+    )
+}
+
 fun MenuEntity.toListMenuUI(): List<MenuUI> {
     return this.food
         .map {

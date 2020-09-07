@@ -4,6 +4,9 @@ package com.albuquerque.domain.repository
 import androidx.arch.core.executor.testing.CountingTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
+import com.albuquerque.data.AppDatabase
+import com.albuquerque.data.dao.CategoryDao
+import com.albuquerque.data.dao.FoodDao
 import com.albuquerque.domain.remote.MenulyAPI
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -22,9 +25,9 @@ abstract class BaseTest {
     @JvmField
     val countingTaskExecutorRule = CountingTaskExecutorRule()
 
-    private lateinit var database: com.albuquerque.data.AppDatabase
-    protected lateinit var categoryDao: com.albuquerque.data.dao.CategoryDao
-    protected lateinit var foodDao: com.albuquerque.data.dao.FoodDao
+    private lateinit var database: AppDatabase
+    protected lateinit var categoryDao: CategoryDao
+    protected lateinit var foodDao: FoodDao
     private lateinit var localRepository: LocalRepository
 
     private lateinit var mockWebServer: MockWebServer
@@ -41,7 +44,7 @@ abstract class BaseTest {
         database = Room
             .inMemoryDatabaseBuilder(
                 ApplicationProvider.getApplicationContext(),
-                com.albuquerque.data.AppDatabase::class.java
+                AppDatabase::class.java
             )
             .setTransactionExecutor(Executors.newSingleThreadExecutor())
             .allowMainThreadQueries()
@@ -67,12 +70,11 @@ abstract class BaseTest {
             .build()
             .create(MenulyAPI::class.java)
 
-        remoteRepository = com.albuquerque.domain.repository.RemoteRepositoryImpl()
-        localRepository =
-            com.albuquerque.domain.repository.LocalRepositoryImpl(categoryDao, foodDao)
+        remoteRepository = RemoteRepositoryImpl()
+        localRepository = LocalRepositoryImpl(categoryDao, foodDao)
 
         repository =
-            com.albuquerque.domain.repository.RepositoryImpl(remoteRepository, localRepository)
+            RepositoryImpl(remoteRepository, localRepository)
     }
 
     @After

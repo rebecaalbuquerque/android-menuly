@@ -1,11 +1,8 @@
 package com.albuquerque.menuly.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.distinctUntilChanged
-import androidx.lifecycle.viewModelScope
-import com.albuquerque.core.util.Event
-import com.albuquerque.core.view.mediator.SingleMediatorLiveData
+import androidx.lifecycle.*
+import com.albuquerque.core.mediator.SingleMediatorLiveData
+import com.albuquerque.core.view.util.ViewState
 import com.albuquerque.domain.usecase.GetMenuUseCase
 import com.albuquerque.core.viewmodel.BaseViewModel
 import com.albuquerque.data.ui.MenuUI
@@ -31,18 +28,25 @@ class MenuViewModel(
     }
 
     fun getMenu() {
-        onShowLoading.postValue(Event(Any()))
+        viewState.value = ViewState.LoadingState
 
         viewModelScope.launch {
             getMenuUseCase.invokeFromApi().collect { result ->
-                onHideLoading.postValue(Event(Any()))
+                viewState.value = ViewState.Idle
 
-                result.onFailure {
+                result
+                    .onSuccess {
 
-                    if(_menu.value.isNullOrEmpty())
-                        onLayoutError.postValue(Event(Any()))
-                    else
-                        onSnackBarError.postValue(Event(it.message))
+                        if(_menu.value.isNullOrEmpty() && it.isEmpty())
+                            viewState.value = ViewState.EmptyState
+
+                    }
+                    .onFailure {
+
+                        if(_menu.value.isNullOrEmpty())
+                            viewState.value = ViewState.EmptyState
+                        else
+                            viewState.value = ViewState.ErrorState(it.message)
 
                 }
 

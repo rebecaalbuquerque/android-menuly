@@ -8,8 +8,9 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.observe
-import com.albuquerque.menuly.R
 import com.albuquerque.core.view.activity.BaseActivity
+import com.albuquerque.core.view.util.ViewState
+import com.albuquerque.menuly.R
 import com.albuquerque.menuly.adapter.MenuAdapter
 import com.albuquerque.menuly.databinding.ActivityMenuBinding
 import com.albuquerque.menuly.extensions.setGone
@@ -59,23 +60,27 @@ class MenuActivity : BaseActivity() {
 
         with(menuViewModel) {
 
-            onShowLoading.observe(this@MenuActivity) {
-                layoutEmpty.setGone()
-                showLoading()
-            }
+            viewState.observe(this@MenuActivity) { viewState ->
 
-            onHideLoading.observe(this@MenuActivity) {
-                hideLoading()
-            }
+                when(viewState) {
 
-            onLayoutError.observe(this@MenuActivity) {
-                layoutEmpty.setVisible()
-            }
+                    is ViewState.Idle -> hideLoading()
 
-            onSnackBarError.observe(this@MenuActivity) { event ->
-                event.getContentIfNotHandled()?.let {
-                    container.showSnackbar(it)
+                    is ViewState.LoadingState -> {
+                        layoutEmpty.setGone()
+                        showLoading()
+                    }
+
+                    is ViewState.EmptyState -> layoutEmpty.setVisible()
+
+                    is ViewState.ErrorState -> {
+                        viewState.message?.let {
+                            container.showSnackbar(it)
+                        }
+
+                    }
                 }
+
             }
 
         }

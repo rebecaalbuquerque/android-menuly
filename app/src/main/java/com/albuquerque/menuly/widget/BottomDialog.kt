@@ -1,7 +1,6 @@
 package com.albuquerque.menuly.widget
 
 import android.app.Activity
-import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AlertDialog
 import com.albuquerque.menuly.R
@@ -46,27 +45,34 @@ fun AlertDialog.body(body: String): AlertDialog {
 }
 
 fun AlertDialog.icon(icon: Int): AlertDialog {
-    this.image.setImageResource(icon)
-    this.image.setVisible()
-    return this
-}
-
-fun AlertDialog.onPositive(text: String, action: (() -> Unit)? = null): AlertDialog {
-    this.positiveButton.setVisible()
-    this.positiveButton.text = text.trim()
-    this.positiveButton.setOnClickListener {
-        action?.invoke()
-        dismiss()
+    this.image.apply {
+        this.setImageResource(icon)
+        this.setVisible()
     }
     return this
 }
 
+fun AlertDialog.onPositive(text: String, action: (() -> Unit)? = null): AlertDialog {
+    this.positiveButton.apply {
+        this.setVisible()
+        this.text = text.trim()
+        this.setOnClickListener {
+            action?.invoke()
+            dismiss()
+        }
+    }
+
+    return this
+}
+
 fun AlertDialog.onNegative(text: String, action: (() -> Unit)? = null): AlertDialog {
-    this.negativeButton.setVisible()
-    this.negativeButton.text = text.trim()
-    this.negativeButton.setOnClickListener {
-        action?.invoke()
-        dismiss()
+    this.negativeButton.apply {
+        this.setVisible()
+        this.text = text.trim()
+        this.setOnClickListener {
+            action?.invoke()
+            dismiss()
+        }
     }
     return this
 }

@@ -1,11 +1,13 @@
 package com.albuquerque.menuly.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.albuquerque.core.util.Event
-import com.albuquerque.core.view.mediator.SingleMediatorLiveData
+import com.albuquerque.core.mediator.SingleMediatorLiveData
+import com.albuquerque.core.view.util.ViewState
 import com.albuquerque.core.viewmodel.BaseViewModel
 import com.albuquerque.data.ui.MenuUI
 import com.albuquerque.domain.usecase.CheckOutUseCase
@@ -28,7 +30,6 @@ class CartViewModel(
     private val _total = MutableLiveData<Double>()
     val total = _total as LiveData<Double>
 
-    val onEmpty = MutableLiveData<Event<Any>>()
     val onLessThanTheMinimum = MutableLiveData<Event<Double>>()
     val onCompletedOrder = MutableLiveData<Event<Double>>()
 
@@ -38,7 +39,7 @@ class CartViewModel(
                 .collect { list ->
 
                     if(list.isEmpty())
-                        onEmpty.postValue(Event(Any()))
+                        viewState.value = ViewState.EmptyState
 
                     _total.postValue(list.sumByDouble { it.price })
 
@@ -48,7 +49,7 @@ class CartViewModel(
     }
 
     fun tryCheckOut() {
-        onShowLoading.postValue(Event(Any()))
+        viewState.value = ViewState.LoadingState
 
         viewModelScope.launch {
 
@@ -58,7 +59,7 @@ class CartViewModel(
                     total.value?.let { value ->
 
                          if(value < restaurant.minimumOrderPrice) {
-                             onHideLoading.postValue(Event(Any()))
+                             viewState.value = ViewState.Idle
                              onLessThanTheMinimum.postValue(Event(restaurant.minimumOrderPrice))
                          } else {
                             checkOut()
@@ -67,8 +68,7 @@ class CartViewModel(
 
                 }
                 .onFailure {
-                    onHideLoading.postValue(Event(Any()))
-                    onSnackBarError.postValue(Event(it.message))
+                    viewState.value = ViewState.ErrorState(it.message)
                 }
 
         }
@@ -84,14 +84,14 @@ class CartViewModel(
     private suspend fun checkOut() {
         checkOutUseCase.invoke()
             .onSuccess {
-                onHideLoading.postValue(Event(Any()))
+                Log.d("Pedido", "${cart.value}")
+                viewState.value = ViewState.Idle
                 total.value?.let {
                     onCompletedOrder.postValue(Event(it))
                 }
             }
             .onFailure {
-                onHideLoading.postValue(Event(Any()))
-                onSnackBarError.postValue(Event(it.message))
+                viewState.value = ViewState.ErrorState(it.message)
             }
     }
 

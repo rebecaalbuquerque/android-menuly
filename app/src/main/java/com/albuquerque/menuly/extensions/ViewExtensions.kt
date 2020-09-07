@@ -9,7 +9,7 @@ fun View.setVisible() {
     this.visibility = View.VISIBLE
 }
 
-fun View.setInisible() {
+fun View.setInvisible() {
     this.visibility = View.INVISIBLE
 }
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.observe
 import com.albuquerque.core.view.activity.BaseActivity
+import com.albuquerque.core.view.util.ViewState
 import com.albuquerque.menuly.R
 import com.albuquerque.menuly.adapter.MenuAdapter
 import com.albuquerque.menuly.databinding.ActivityCartBinding
@@ -33,22 +34,16 @@ class CartActivity : BaseActivity() {
     private fun subscribeUI() {
         with(cartViewModel) {
 
-            onEmpty.observe(this@CartActivity) {
-                layoutEmpty.setVisible()
-            }
-
-            onSnackBarError.observe(this@CartActivity) { message ->
-                message.getContentIfNotHandled()?.let {
-                    container.showSnackbar(it)
+            viewState.observe(this@CartActivity) { viewState ->
+                when(viewState) {
+                    is ViewState.Idle -> orderProgress.setGone()
+                    is ViewState.LoadingState -> orderProgress.setVisible()
+                    is ViewState.EmptyState -> layoutEmpty.setVisible()
+                    is ViewState.ErrorState -> {
+                        orderProgress.setGone()
+                        viewState.message?.let { container.showSnackbar(it) }
+                    }
                 }
-            }
-
-            onShowLoading.observe(this@CartActivity) {
-                orderProgress.setVisible()
-            }
-
-            onHideLoading.observe(this@CartActivity) {
-                orderProgress.setGone()
             }
 
             onCompletedOrder.observe(this@CartActivity) { event ->

@@ -1,4 +1,4 @@
-package com.albuquerque.core.view.mediator
+package com.albuquerque.core.mediator
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData

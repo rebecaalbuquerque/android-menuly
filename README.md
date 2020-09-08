@@ -28,6 +28,7 @@ Some components of the Android Architecture Components library collection were a
 - Gson: handles the serialization/deserialization from the API
 - OkHttp3: HTTP client
 - Coroutines: to execute asynchronously
+- LeakCanary: for memory leak detection
 
 # Test libraries
 - Hamcrest
